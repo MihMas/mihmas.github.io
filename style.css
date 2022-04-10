@@ -1,12 +1,5 @@
-*
-{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 body{
 background-color: rgb(83, 192, 255);
-
 }
 .header_nav{
  display: flex;
