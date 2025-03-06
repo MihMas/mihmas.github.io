@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форматирование LaTeX</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: left;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        textarea {
+            width: 95%;
+            height: 300px;
+            font-size: large;
+            border-radius: 15px;
+            padding-left: 2%;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border: 2px solid black;
+            margin: 5%;
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            width: 95%;
+            margin-top: 40px;
+        }
+        p {
+            margin-top: 10%;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        button {
+            width: 50%;
+            height: 50px;
+            font-size: large;
+            border-radius: 35px;
+            cursor: pointer;
+            transition: .15s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(1);
+        }
+
+        @media (min-width: 1400px) {
+            textarea {
+                width: 50%;
+                font-size: xx-large;
+                padding-left: .5%;
+            }
+            p {
+                font-size: 50px;
+            }
+            #output {
+                width: 50%;
+                font-size: xx-large;
+            }
+            button {
+                width: 15%;
+                height: 100px;
+                font-size: xx-large;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <p>Форматирование LaTeX</p>
+    <textarea id="latexInput" placeholder="Введите LaTeX код...">\(E = mc^2\)
+</textarea>
+    <br>
+    <button onclick="renderLaTeX()">Отобразить</button>
+    <div id="output"></div>
+    
+    <script>
+        function renderLaTeX() {
+            let input = document.getElementById("latexInput").value;
+            document.getElementById("output").innerHTML = input;
+            MathJax.typeset();
+        }
+    </script>
+</body>
+</html>
