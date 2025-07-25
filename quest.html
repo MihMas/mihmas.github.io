@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Уродливый сайт</title>
+    <style>
+        body {
+            background-color: #ffccff;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            color: #006600;
+            margin: 0;
+            padding: 20px;
+            height: 5000px;
+        }
+        .container {
+            background-color: #ffff99;
+            border: 5px dashed red;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 10px 10px 5px #ff0000;
+        }
+        input, button {
+            font-size: 24px;
+            color: #000080;
+            background-color: #ffff66;
+            border: 3px solid #cc0000;
+            margin-top: 10px;
+            padding: 10px;
+            color: rgb(226,154,18) !important;
+        }
+        audio {
+            width: 1vw;
+        }
+        marquee {
+            font-size: 32px;
+            color: #ff00ff;
+            text-shadow: 2px 2px #000000;
+            background-color: #ccffff;
+            border: 2px solid #00008b;
+        }
+        .blink {
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .result {
+            font-size: 28px;
+            color: #ff3300;
+            text-shadow: 3px 3px #000000;
+            background-color: #ffffcc;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        audio {
+            background-color: #000000;
+        }
+        
+        #video-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: none;
+            background-color: black;
+            z-index: 1000;
+        }
+        
+        #video-player {
+            width: 100%;
+            max-height: 100vh;
+        }
+        
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .btn-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        #play-button {
+            position: fixed;
+            bottom: 20px;
+            font-size: 2vw;
+            padding: .5vw 1vw;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+            z-index: 1001;
+            transition: .1s;
+        }
+        #play-button:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+        #play-button:active {
+            transform: scale(.95);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <marquee behavior="scroll" direction="left" scrollamount="30">ВВЕДИ ПАРОЛЬ    ВВЕДИ ПАРОЛЬ    ВВЕДИ ПАРОЛЬ    ВВЕДИ ПАРОЛЬ</marquee>
+        <div class="blink" style="font-size:24px; color:#00ff00;">ВНИМАНИЕ!!! ВНИМАНИЕ!!! ВНИМАНИЕ!!!</div>
+        <audio controls>
+            <source src="audio.mp3" type="audio/mp3">
+        </audio>
+        <input type="text" id="userInput" placeholder="Введите пароль..." />
+        <button onclick="checkPassword()">Ввести</button>
+
+        <div id="result" class="result" style="display:none;">
+
+        </div>
+    </div>
+        <div class="btn-container">
+            <button id="play-button">❔</button>
+        </div>
+        <div id="video-container">
+        <video id="video-player" controls>
+            <source src="video.mp4" type="video/mp4">
+        </video>
+
+
+    <script>
+        const playButton = document.getElementById('play-button');
+        const videoContainer = document.getElementById('video-container');
+        const videoPlayer = document.getElementById('video-player');
+        let isButtonShown = false;
+
+        window.addEventListener('scroll', function() {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100 && !isButtonShown) {
+                playButton.style.display = 'block';
+                isButtonShown = true;
+            }
+        });
+
+        playButton.addEventListener('click', function() {
+            setTimeout(function() {
+                close()
+            }, 11450);
+            playButton.style.display = 'none';
+            videoContainer.style.display = 'block';
+            videoPlayer.play().catch(error => {
+                alert("Браузер заблокировал автоматическое воспроизведение. Нажмите на видео для запуска.");
+            });
+
+        });
+        function hash(s) {
+          return s.split("").reduce(function(a, b) {
+            a = ((a << 5) - a) + b.charCodeAt(0);
+            return a & a;
+          }, 0);
+        }
+
+        function checkPassword() {
+            const input = document.getElementById("userInput").value;
+            const result = document.getElementById("result");
+            console.log(hash(input))
+            if (hash(input) == "-626446686") {
+                result.style.display = "block";
+                result.style.backgroundColor = "#ffcccc";
+                result.style.color = "#cc0000";
+                result.innerHTML = `Верно🤗. Вот тебе ссылка: ${decodeString(input)}. А ключ к иВженеру я вроде где то недавно в дс в чатике писал, хз. вроде слово на ch`;
+            } else {
+                result.style.display = "block";
+                result.style.backgroundColor = "#ffcccc";
+                result.style.color = "#cc0000";
+                result.innerHTML = "НЕВЕРНО!!!";
+            }
+        }
+        function decodeString(str) {
+            let sum = 0;
+            for (let i = 0; i < str.length; i++) {
+                sum += str.charCodeAt(i);
+            }
+            sum -= 3994;
+            encodedStr = 'LKOeEWooHkSiSwTkefi.UdZcqoslyfOqOFFtLvLiqAYuwdz.PqSrDDImcldvfCXxQvAezKGlJKnptgmknHO.hMiriPmyKGywvN';
+            originalLength = 100;
+            let originalPart = [];
+            let replacementPart = [];
+
+            for (let i = 0; i < encodedStr.length; i++) {
+                if (i < 1000) {
+                    if ((i + 1) % sum === 0) {
+                        replacementPart.push(encodedStr[i]);
+                    } else {
+                        originalPart.push(encodedStr[i]);
+                    }
+                } else {
+                    replacementPart.push(encodedStr[i]);
+                }
+            }
+
+            return replacementPart.join('');
+        }
+    </script>
+</body>
+</html>
