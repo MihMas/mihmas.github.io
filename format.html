@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отобразить Markdown</title>
+
+    <!-- MARKED – парсер Markdown (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Немного стилей для красивого вывода Markdown (по желанию) -->
+    <style>
+        /* Общие стили страницы */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        textarea {
+            width: 95%;
+            height: 300px;
+            font-size: large;
+            border-radius: 15px;
+            padding: 1% 2%;
+            border: 2px solid #333;
+            margin: 5% 0;
+            resize: vertical;
+        }
+
+        #output {
+            width: 95%;
+            margin-top: 40px;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #fafafa;
+            display: none;
+        }
+
+        button {
+            width: 50%;
+            height: 50px;
+            font-size: large;
+            border-radius: 35px;
+            cursor: pointer;
+            transition: .15s;
+        }
+
+        button:hover { transform: translateY(-2px); }
+        button:active { transform: translateY(0); }
+
+        /* Стили, похожие на GitHub‑Pages */
+        .markdown-body {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #24292e;
+        }
+        .markdown-body h1,
+        .markdown-body h2,
+        .markdown-body h3,
+        .markdown-body h4,
+        .markdown-body h5,
+        .markdown-body h6 {
+            margin-top: 1.5em;
+            margin-bottom: .5em;
+            font-weight: 600;
+        }
+        .markdown-body p { margin: 0.8em 0; }
+        .markdown-body a { color: #0366d6; text-decoration: none; }
+        .markdown-body a:hover { text-decoration: underline; }
+        .markdown-body code {
+            background: #f6f8fa;
+            padding: .2em .4em;
+            border-radius: 3px;
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+        }
+        .markdown-body pre {
+            background: #f6f8fa;
+            padding: 1em;
+            overflow-x: auto;
+            border-radius: 6px;
+        }
+        .markdown-body blockquote {
+            border-left: .25em solid #dfe2e5;
+            color: #6a737d;
+            padding: 0 1em;
+            margin: 0;
+        }
+        .markdown-body ul,
+        .markdown-body ol {
+            padding-left: 2em;
+        }
+
+        @media (min-width: 1400px) {
+            textarea { width: 50%; font-size: xx-large; }
+            #output { width: 50%; font-size: xx-large; }
+            button   { width: 15%; height: 100px; font-size: xx-large; }
+        }
+    </style>
+</head>
+<body>
+    <textarea id="mdInput" placeholder="Введите Markdown‑текст...">
+**Жирный** текст, *курсив*.
+
+- Список
+- Еще пункт
+
+```js
+// Пример кода
+console.log('Hello, Markdown!');
+```
+
+[Ссылка на Google](https://google.com)
+    </textarea>
+
+    <button onclick="renderMarkdown()">Отобразить</button>
+
+    <div id="output" class="markdown-body"></div>
+
+    <script>
+        /**
+         * Преобразует содержимое textarea из Markdown в HTML
+         * и вставляет результат в блок #output.
+         */
+        function renderMarkdown() {
+            const src = document.getElementById('mdInput').value;
+
+            // Настраиваем парсер (опционально)
+            marked.setOptions({
+                breaks: true,          // перевод строки → <br>
+                gfm: true,            // GitHub‑Flavored Markdown
+                headerIds: true,
+                smartLists: true,
+                smartypants: false
+            });
+
+            const html = marked.parse(src);
+            const out = document.getElementById('output');
+            out.style.display = "block";
+            out.innerHTML = html;
+        }
+    </script>
+
+</body>
+</html>
